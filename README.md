@@ -7,6 +7,8 @@ The purpose is to improve the user's concentration ability and orgranizes tasks.
 
 There are two main functions of this program, a focus spans tracker and a to-do list.
 
+It needs to be used with a txt file placed in the same folder as the program.
+
 
 For the focus spans tracker, it allows the user the set a goal of how many times they want to focus.
 
