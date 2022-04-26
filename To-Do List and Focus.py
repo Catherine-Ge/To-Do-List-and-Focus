@@ -20,6 +20,7 @@ def timer():
         times = times - 1
     focus = int(focused.get()) + 1
     focused.set(focus)
+    second.set(0)
     messagebox.showwarning("app", "Time's Up!")
     focusgoal = int(goal.get())
     if focusgoal == focus:
@@ -33,7 +34,7 @@ def add():
         file.close()
         entry.delete(0, END)
     else:
-        messagebox.showwarning("app", "Please enter a valid to-do assignment")
+        messagebox.showwarning("app", "Please enter a valid task")
 
 def cmplt():
     listbox.delete(ANCHOR)
@@ -61,7 +62,7 @@ def load():
     
     
 app = Tk()
-app.geometry('350x400')
+app.geometry('400x400')
 app.title("Focus")
 
 hour=StringVar()
@@ -72,40 +73,37 @@ hour.set("00")
 minute.set("00")
 second.set("00")
 
-Entry(app, textvariable=hour, width=3, font="Arial").place(x=65, y=15)
-Entry(app, textvariable=minute, width=3, font="Arial").place(x=115, y=15)
-Entry(app, textvariable=second, width=3, font="Arial").place(x=165, y=15)
+Label(app, text="Hour", font="Arial").grid(row=0, column=0, sticky=W, pady=10)
+Entry(app, textvariable=hour, width=3, font="Arial").grid(row=0, column=1)
+Label(app, text="Minute", font="Arial").grid(row=0, column=2)
+Entry(app, textvariable=minute, width=3, font="Arial").grid(row=0, column=3)
+Label(app, text="Second", font="Arial").grid(row=0, column=4)
+Entry(app, textvariable=second, width=3, font="Arial").grid(row=0, column=5)
 
-Button(app, text="START", command=lambda:timer(), font=("Arial")).place(x=215, y = 10)
+Button(app, text="START", command=lambda:timer(), font=("Arial")).grid(row=0, column=6)
 
-focusL = Label(app, text="FOCUSED").place(x = 65, y = 50)
+focusL = Label(app, text="DONE").grid(row=1,column=1)
 focused=StringVar()
 focused.set("0")
-Entry(app, textvariable=focused, state=DISABLED, width=3, font="Arial").place(x = 125, y = 50)
+Entry(app, textvariable=focused, state=DISABLED, width=3, font="Arial").grid(row=1,column=2)
 
-goalL = Label(app, text="FOCUS GOAL").place(x = 160, y = 50)
+goalL = Label(app, text="FOCUS GOAL").grid(row=1,column=3, columnspan=2)
 goal=StringVar()
 goal.set("0")
-Entry(app, textvariable=goal, width=3, font="Arial").place(x = 245, y = 50)
+Entry(app, textvariable=goal, width=3, font="Arial").grid(row=1,column=5)
+
+listbox = Listbox(app, height=12, width=37, font="Arial")
+listbox.grid(row=2,column=0,columnspan=8,rowspan=10)
 
 newtodo = StringVar()
 newtodo.set("")
 entry = Entry(app, textvariable=newtodo, width=37, font="Arial")
-entry.place(x=5, y=330)
+entry.grid(row=13,column=0,columnspan=8,rowspan=1)
 
-Button(app, text="ADD", command=lambda:add(), font="Arial").place(x=26, y=350)
+Button(app, text="ADD", command=lambda:add(), font="Arial").grid(row=14,column=1,columnspan=1)
 
-Button(app, text="COMPLETE", command=lambda:cmplt(), font="Arial").place(x=76, y=350)
+Button(app, text="COMPLETE", command=lambda:cmplt(), font="Arial").grid(row=14,column=2,columnspan=2)
 
-Button(app, text="DELETE", command=lambda:dlt(), font="Arial").place(x=179, y=350)
+Button(app, text="DELETE", command=lambda:dlt(), font="Arial").grid(row=14,column=4,columnspan=1)
 
-Button(app, text="LOAD", command=lambda:load(), font="Arial").place(x=256, y=350)
-
-
-listbox = Listbox(app, height=12, width=37, font="Arial")
-listbox.place(x=5, y=80)
-
-
-
-
-
+Button(app, text="LOAD", command=lambda:load(), font="Arial").grid(row=14,column=5,columnspan=1)
